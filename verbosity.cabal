@@ -1,0 +1,65 @@
+name:                   verbosity
+version:                0.1.0.0
+synopsis:               Simple verbosity enum.
+-- description:
+homepage:               https://github.com/trskop/verbosity
+license:                BSD3
+license-file:           LICENSE
+author:                 Peter Trško
+maintainer:             peter.trsko@gmail.com
+copyright:              (c) 2015, Peter Trško
+category:               Data
+build-type:             Simple
+cabal-version:          >=1.10
+
+extra-source-files:     ChangeLog.md, README.md
+
+flag data-typeable
+  description:          Derive instances for Data and Typeable type classes.
+  default:              True
+
+flag ghc-generics
+  description:          Derive instances for Data and Typeable type classes.
+  default:              True
+
+flag binary
+  description:          Derive instances for Binary type class.
+  default:              True
+
+flag data-default
+  description:          Derive instances for Default type class.
+  default:              True
+
+library
+  hs-source-dirs:       src
+  exposed-modules:      Data.Verbosity
+
+  default-language:     Haskell2010
+  other-extensions:
+      CPP
+    , NoImplicitPrelude
+    , DeriveDataTypeable
+    -- ^ With -fdata-typeable
+    , DeriveGeneric
+    -- ^ With -fghc-generics
+
+  build-depends:        base >=4 && <5
+  ghc-options:          -Wall -fwarn-tabs
+
+  if flag(ghc-generics)
+    cpp-options:        -DDERIVE_GHC_GENERICS
+
+    -- GHC.Generics moved from ghc-prim to base with GHC 7.6 release.
+    if impl(ghc >=7.2 && <7.6)
+      build-depends:    ghc-prim
+
+  if flag(data-typeable)
+    cpp-options:        -DDERIVE_DATA_TYPEABLE
+
+  if flag(binary)
+    build-depends:      binary >=0.5 && <0.8
+    cpp-options:        -DDECLARE_BINARY_INSTANCE
+
+  if flag(data-default)
+    build-depends:      data-default-class ==0.0.*
+    cpp-options:        -DDECLARE_DEFAULT_INSTANCE
