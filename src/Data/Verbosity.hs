@@ -20,8 +20,8 @@
 -- Portability:  CPP, NoImplicitPrelude, DeriveDataTypeable (optional),
 --               DeriveGeneric (optional)
 --
--- Enum that encodes 'Verbosity'.
-module Data.Verbosity
+-- Simple enum that encodes application 'Verbosity'.
+module Data.Verbosity (Verbosity(..))
   where
 
 import Prelude
