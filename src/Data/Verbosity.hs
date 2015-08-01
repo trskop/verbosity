@@ -34,12 +34,18 @@ import Prelude
 #endif
     )
 
-import Data.Data (Data, Typeable)
 import Data.Eq (Eq)
 import Data.Ord (Ord)
-import GHC.Generics (Generic)
 import Text.Show (Show)
 import Text.Read (Read)
+
+#ifdef DERIVE_DATA_TYPEABLE
+import Data.Data (Data, Typeable)
+#endif
+
+#ifdef DERIVE_GHC_GENERICS
+import GHC.Generics (Generic)
+#endif
 
 #ifdef DECLARE_BINARY_INSTANCE
 import Control.Applicative ((<$>))
