@@ -3,6 +3,7 @@ version:                0.1.0.0
 synopsis:               Simple verbosity enum.
 -- description:
 homepage:               https://github.com/trskop/verbosity
+bug-reports:            https://github.com/trskop/verbosity/issues
 license:                BSD3
 license-file:           LICENSE
 author:                 Peter Trško
