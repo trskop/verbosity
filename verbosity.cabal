@@ -74,3 +74,12 @@ library
   if flag(data-default)
     build-depends:      data-default-class ==0.0.*
     cpp-options:        -DDECLARE_DEFAULT_INSTANCE
+
+source-repository head
+  type:                 git
+  location:             git://github.com/trskop/verbosity
+
+source-repository this
+  type:                 git
+  location:             git://github.com/trskop/verbosity.git
+  tag:                  v0.1.0.0
