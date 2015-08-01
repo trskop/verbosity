@@ -8,7 +8,7 @@
 
 # Description
 
-Simple verbosity enum with useful various useful instances.
+Simple enum that encodes application verbosity with various useful instances.
 
 
 [Haskell.org]:
@@ -17,4 +17,3 @@ Simple verbosity enum with useful various useful instances.
 [tl;dr Legal: BSD3]:
   https://tldrlegal.com/license/bsd-3-clause-license-%28revised%29
   "BSD 3-Clause License (Revised)"
-

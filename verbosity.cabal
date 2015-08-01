@@ -1,7 +1,9 @@
 name:                   verbosity
 version:                0.1.0.0
-synopsis:               Simple verbosity enum.
--- description:
+synopsis:               Simple enum that encodes application verbosity.
+description:
+  Simple enum that encodes application verbosity with various useful instances.
+
 homepage:               https://github.com/trskop/verbosity
 bug-reports:            https://github.com/trskop/verbosity/issues
 license:                BSD3
