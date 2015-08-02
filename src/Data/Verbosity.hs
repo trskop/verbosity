@@ -21,23 +21,29 @@
 --               DeriveGeneric (optional)
 --
 -- Simple enum that encodes application 'Verbosity'.
-module Data.Verbosity (Verbosity(..))
+module Data.Verbosity
+    (
+    -- * Verbosity
+      Verbosity(..)
+    , fromInt
+    )
   where
 
 import Prelude
-    ( Bounded
-#ifdef DECLARE_BINARY_INSTANCE
+    ( Bounded(maxBound, minBound)
     , Enum(fromEnum, toEnum)
+#ifdef DECLARE_BINARY_INSTANCE
     , fromIntegral
-#else
-    , Enum
 #endif
     )
 
+import Data.Bool ((&&), otherwise)
 import Data.Eq (Eq)
-import Data.Ord (Ord)
-import Text.Show (Show)
+import Data.Int (Int)
+import Data.Maybe (Maybe(..))
+import Data.Ord (Ord(..))
 import Text.Read (Read)
+import Text.Show (Show)
 
 #ifdef DERIVE_DATA_TYPEABLE
 import Data.Data (Data, Typeable)
@@ -113,3 +119,14 @@ instance Binary Verbosity where
     get = toEnum . fromIntegral <$> getWord8
     put = putWord8 . fromIntegral . fromEnum
 #endif
+
+-- | Safe version of 'toEnum' specialized to 'Verbosity'.
+fromInt :: Int -> Maybe Verbosity
+fromInt n
+  | n >= minVerbosity && n <= maxVerbosity = Just (toEnum n)
+  | otherwise                              = Nothing
+  where
+    -- This makes code robust enough to survive changes in Verbosity
+    -- definition.
+    minVerbosity = fromEnum (minBound :: Verbosity)
+    maxVerbosity = fromEnum (maxBound :: Verbosity)

@@ -5,6 +5,7 @@
 
 * Introducing module Data.Verbosity.Class which contains definition of
   HasVerbosity type class. (new)
+* Introducing function `fromInt :: Int -> Maybe Verbosity`. (new)
 * Depends on [transformers][] package in case [base][] <4.8. (new)
 
 
