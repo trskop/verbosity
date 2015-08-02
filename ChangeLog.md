@@ -8,6 +8,8 @@
 * Introducing function `fromInt :: Int -> Maybe Verbosity`. (new)
 * Introducing function
   `parse :: (Eq string, IsString string) => string -> Maybe Verbosity`. (new)
+* NFData instance, if compiled with `-fdeepseq`, which is the default case.
+  (new)
 * Depends on [transformers][] package in case [base][] <4.8. (new)
 
 

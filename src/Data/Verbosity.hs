@@ -9,6 +9,10 @@
 {-# LANGUAGE DeriveGeneric #-}
 #endif
 
+#ifdef DECLARE_NFDATA_INSTANCE
+{-# LANGUAGE BangPatterns #-}
+#endif
+
 -- |
 -- Module:       $HEADER$
 -- Description:  Verbosity enum.
@@ -17,8 +21,8 @@
 --
 -- Maintainer:   peter.trsko@gmail.com
 -- Stability:    experimental
--- Portability:  CPP, NoImplicitPrelude, DeriveDataTypeable (optional),
---               DeriveGeneric (optional)
+-- Portability:  BangPatterns (optional), CPP, NoImplicitPrelude,
+--               DeriveDataTypeable (optional), DeriveGeneric (optional)
 --
 -- Simple enum that encodes application 'Verbosity'.
 module Data.Verbosity
@@ -65,6 +69,10 @@ import Data.Binary (Binary(get, put), getWord8, putWord8)
 
 #ifdef DECLARE_DEFAULT_INSTANCE
 import Data.Default.Class (Default(def))
+#endif
+
+#ifdef DECLARE_NFDATA_INSTANCE
+import Control.DeepSeq (NFData(rnf))
 #endif
 
 
@@ -115,6 +123,11 @@ instance Default Verbosity where
 instance Binary Verbosity where
     get = toEnum . fromIntegral <$> getWord8
     put = putWord8 . fromIntegral . fromEnum
+#endif
+
+#ifdef DECLARE_NFDATA_INSTANCE
+instance NFData Verbosity where
+    rnf !_ = ()
 #endif
 
 -- | Safe version of 'toEnum' specialized to 'Verbosity'.
