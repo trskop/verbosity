@@ -154,8 +154,7 @@ fromInt n
 -- Just Silent
 -- @
 parse :: (Eq string, IsString string) => string -> Maybe Verbosity
-parse =
-    (`lookup` [(str v, v) | v <- [minBound..maxBound :: Verbosity]])
+parse = (`lookup` [(str v, v) | v <- [minBound..maxBound :: Verbosity]])
   where
     str = fromString . showConstr . toConstr
 #endif
