@@ -59,6 +59,23 @@ import Data.Default.Class (Default(def))
 #endif
 
 
+-- | Ordering:
+--
+-- @
+-- 'Silent' < 'Normal' < 'Verbose' < 'Annoying'
+-- @
+--
+-- Bounds:
+--
+-- @
+-- 'minBound' = 'Silent'; 'maxBound' = 'Annoying'
+-- @
+--
+-- Enum:
+--
+-- @
+-- map 'fromEnum' ['Silent' .. 'Annoying'] = [0, 1, 2, 3]
+-- @
 data Verbosity
     = Silent
     -- ^ Don't print any messages.
@@ -91,8 +108,7 @@ instance Default Verbosity where
 #endif
 
 #ifdef DECLARE_BINARY_INSTANCE
--- Encoded as byte in range
--- ['fromEnum' v | v <- ['Prelude.minBound'..'Prelude.maxBound' :: 'Verbosity']
+-- | Encoded as one byte in range @['minBound' .. 'maxBound' :: Verbosity]@.
 instance Binary Verbosity where
     get = toEnum . fromIntegral <$> getWord8
     put = putWord8 . fromIntegral . fromEnum
