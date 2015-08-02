@@ -36,7 +36,7 @@ flag data-typeable
   default:              True
 
 flag ghc-generics
-  description:          Derive instances for Data and Typeable type classes.
+  description:          Derive instances for Generic type class.
   default:              True
 
 flag binary
