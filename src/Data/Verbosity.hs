@@ -22,10 +22,11 @@
 --
 -- Simple enum that encodes application 'Verbosity'.
 module Data.Verbosity
-    (
-    -- * Verbosity
-      Verbosity(..)
+    ( Verbosity(..)
     , fromInt
+#ifdef DERIVE_DATA_TYPEABLE
+    , parse
+#endif
     )
   where
 
@@ -46,7 +47,9 @@ import Text.Read (Read)
 import Text.Show (Show)
 
 #ifdef DERIVE_DATA_TYPEABLE
-import Data.Data (Data, Typeable)
+import Data.Data (Data(toConstr), Typeable, showConstr)
+import Data.List (lookup)
+import Data.String (IsString(fromString))
 #endif
 
 #ifdef DERIVE_GHC_GENERICS
@@ -124,3 +127,22 @@ fromInt n
     -- definition.
     minVerbosity = fromEnum (minBound :: Verbosity)
     maxVerbosity = fromEnum (maxBound :: Verbosity)
+
+#ifdef DERIVE_DATA_TYPEABLE
+-- | Generic 'Verbosity' parsing function.
+--
+-- Use <https://hackage.haskell.org/package/case-insensitive case-insensitive>
+-- package to make this function case insensitive:
+--
+-- @
+-- ghci> import Data.Verbosity as Verbosity
+-- ghci> import qualified Data.CaseInsensitive as CI (mk)
+-- ghci> Verbosity.parse (CI.mk "silent")
+-- Just Silent
+-- @
+parse :: (Eq string, IsString string) => string -> Maybe Verbosity
+parse =
+    (`lookup` [(str v, v) | v <- [minBound..maxBound :: Verbosity]])
+  where
+    str = fromString . showConstr . toConstr
+#endif
