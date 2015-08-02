@@ -1,12 +1,25 @@
 # ChangeLog / ReleaseNotes
 
 
+## Version 0.2.0.0
+
+* Introducing module Data.Verbosity.Class which contains definition of
+  HasVerbosity type class. (new)
+* Depends on [transformers][] package in case [base][] <4.8. (new)
+
+
 ## Version 0.1.0.0
 
 * First public release.
 * Uploaded to [Hackage][]: <http://hackage.haskell.org/package/verbosity-0.1.0.0>
 
 
+[base]:
+  http://hackage.haskell.org/package/base
+  "base package on Hackage"
 [Hackage]:
   http://hackage.haskell.org/
   "HackageDB (or just Hackage) is a collection of releases of Haskell packages."
+[transformers]:
+  http://hackage.haskell.org/package/transformers
+  "transformers package on Hackage"
