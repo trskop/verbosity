@@ -92,18 +92,12 @@ data Verbosity
     | Annoying
     -- ^ Print debugging/tracing information.
   deriving
-    ( Bounded
-    , Enum
-    , Eq
-    , Ord
-    , Read
-    , Show
+    ( Bounded, Enum, Eq, Ord, Read, Show
 #ifdef DERIVE_GHC_GENERICS
     , Generic
 #endif
 #ifdef DERIVE_DATA_TYPEABLE
-    , Data
-    , Typeable
+    , Data, Typeable
 #endif
     )
 
