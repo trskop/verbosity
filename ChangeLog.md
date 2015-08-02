@@ -11,6 +11,7 @@
 * NFData instance, if compiled with `-fdeepseq`, which is the default case.
   (new)
 * Depends on [transformers][] package in case [base][] <4.8. (new)
+* Uploaded to [Hackage][]: <http://hackage.haskell.org/package/verbosity-0.2.0.0>
 
 
 ## Version 0.1.0.0
