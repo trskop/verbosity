@@ -1,10 +1,16 @@
 # ChangeLog / ReleaseNotes
 
 
+## Version 0.2.1.0
+
+* Introducing optional instance for cereal's `Serialize` type class. Dependency
+  on `cereal` package can be enabled using `-fcereal` build flag. (new)
+
+
 ## Version 0.2.0.0
 
-* Introducing module Data.Verbosity.Class which contains definition of
-  HasVerbosity type class. (new)
+* Introducing module `Data.Verbosity.Class` which contains definition of
+  `HasVerbosity` type class. (new)
 * Introducing function `fromInt :: Int -> Maybe Verbosity`. (new)
 * Introducing function
   `parse :: (Eq string, IsString string) => string -> Maybe Verbosity`. (new)

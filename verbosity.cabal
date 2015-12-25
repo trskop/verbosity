@@ -1,5 +1,5 @@
 name:                   verbosity
-version:                0.2.0.0
+version:                0.2.1.0
 synopsis:               Simple enum that encodes application verbosity.
 description:
   Simple enum that encodes application verbosity with various useful instances.
@@ -51,6 +51,10 @@ flag deepseq
   description:          Define instance for NFData type class.
   default:              True
 
+flag cereal
+  description:          Define instance for Serialize type class.
+  default:              False
+
 library
   hs-source-dirs:       src
   exposed-modules:      Data.Verbosity, Data.Verbosity.Class
@@ -75,7 +79,7 @@ library
     -- Versions of transformers <0.2 doesn't include Data.Functor.Identity,
     -- which is used by this package, and version 0.4.0.0 of transformers is
     -- deprecated.
-    build-depends:      transformers >=0.2 && <0.4 || >=0.4.1 && <0.5
+    build-depends:      transformers >=0.2 && <0.4 || >=0.4.1 && <0.6
 
   if flag(pedantic)
     ghc-options:        -fwarn-implicit-prelude
@@ -91,7 +95,7 @@ library
     cpp-options:        -DDERIVE_DATA_TYPEABLE
 
   if flag(binary)
-    build-depends:      binary >=0.5 && <0.8
+    build-depends:      binary >=0.5 && <0.9
     cpp-options:        -DDECLARE_BINARY_INSTANCE
 
   if flag(data-default)
@@ -100,8 +104,12 @@ library
 
   if flag(deepseq)
     cpp-options:        -DDECLARE_NFDATA_INSTANCE
-    build-depends:      deepseq >= 1.1.0.0 && < 2
+    build-depends:      deepseq >=1.1.0.0 && <2
     -- Prior to version 1.1.0.0 there was DeepSeq class instead of NFData.
+
+  if flag(cereal)
+    cpp-options:        -DDECLARE_SERIALIZE_INSTANCE
+    build-depends:      cereal >=0.1 && <0.6
 
 source-repository head
   type:                 git
@@ -110,4 +118,4 @@ source-repository head
 source-repository this
   type:                 git
   location:             git://github.com/trskop/verbosity.git
-  tag:                  v0.2.0.0
+  tag:                  v0.2.1.0

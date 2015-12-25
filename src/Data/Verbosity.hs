@@ -60,11 +60,18 @@ import Data.String (IsString(fromString))
 import GHC.Generics (Generic)
 #endif
 
-#ifdef DECLARE_BINARY_INSTANCE
+#if defined(DECLARE_BINARY_INSTANCE) || defined(DECLARE_SERIALIZE_INSTANCE)
 import Control.Applicative ((<$>))
 import Data.Function ((.))
+#endif
 
-import Data.Binary (Binary(get, put), getWord8, putWord8)
+#ifdef DECLARE_BINARY_INSTANCE
+import Data.Binary (Binary(get, put))
+import qualified Data.Binary as Binary (getWord8, putWord8)
+#endif
+
+#ifdef DECLARE_SERIALIZE_INSTANCE
+import qualified Data.Serialize as Cereal (Serialize(..), getWord8, putWord8)
 #endif
 
 #ifdef DECLARE_DEFAULT_INSTANCE
@@ -121,8 +128,15 @@ instance Default Verbosity where
 #ifdef DECLARE_BINARY_INSTANCE
 -- | Encoded as one byte in range @['minBound' .. 'maxBound' :: Verbosity]@.
 instance Binary Verbosity where
-    get = toEnum . fromIntegral <$> getWord8
-    put = putWord8 . fromIntegral . fromEnum
+    get = toEnum . fromIntegral <$> Binary.getWord8
+    put = Binary.putWord8 . fromIntegral . fromEnum
+#endif
+
+#ifdef DECLARE_SERIALIZE_INSTANCE
+-- | Encoded as one byte in range @['minBound' .. 'maxBound' :: Verbosity]@.
+instance Cereal.Serialize Verbosity where
+    get = toEnum . fromIntegral <$> Cereal.getWord8
+    put = Cereal.putWord8 . fromIntegral . fromEnum
 #endif
 
 #ifdef DECLARE_NFDATA_INSTANCE
