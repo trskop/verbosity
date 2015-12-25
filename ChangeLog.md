@@ -5,6 +5,7 @@
 
 * Introducing optional instance for cereal's `Serialize` type class. Dependency
   on `cereal` package can be enabled using `-fcereal` build flag. (new)
+* Uploaded to [Hackage][]: <http://hackage.haskell.org/package/verbosity-0.2.1.0>
 
 
 ## Version 0.2.0.0
