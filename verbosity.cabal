@@ -99,7 +99,7 @@ library
     cpp-options:        -DDECLARE_BINARY_INSTANCE
 
   if flag(data-default)
-    build-depends:      data-default-class ==0.0.*
+    build-depends:      data-default-class ==0.0.* || ==0.1.*
     cpp-options:        -DDECLARE_DEFAULT_INSTANCE
 
   if flag(deepseq)
