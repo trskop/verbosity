@@ -1,3 +1,5 @@
+# Based on https://github.com/hvr/multi-ghc-travis
+
 language: c
 
 # Explicitly request container-based infrastructure.
@@ -37,5 +39,4 @@ script:
   - cabal build
 
   # Following line tests if sdist package is created correctly.
-  - cabal sdist
-  - cabal install dist/*.tar.gz
+  - cabal install "$(cabal sdist | sed -rn '$s/^[^:]+: +//p')"
