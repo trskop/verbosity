@@ -1,5 +1,5 @@
 name:                   verbosity
-version:                0.2.1.0
+version:                0.2.2.0
 synopsis:               Simple enum that encodes application verbosity.
 description:
   Simple enum that encodes application verbosity with various useful instances.
@@ -10,7 +10,7 @@ license:                BSD3
 license-file:           LICENSE
 author:                 Peter Trško
 maintainer:             peter.trsko@gmail.com
-copyright:              (c) 2015, Peter Trško
+copyright:              (c) 2015-2016 Peter Trško
 category:               Data
 build-type:             Simple
 cabal-version:          >=1.10
@@ -118,4 +118,4 @@ source-repository head
 source-repository this
   type:                 git
   location:             git://github.com/trskop/verbosity.git
-  tag:                  0.2.1.0
+  tag:                  0.2.2.0

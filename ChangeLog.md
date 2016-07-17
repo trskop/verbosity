@@ -1,6 +1,14 @@
 # ChangeLog / ReleaseNotes
 
 
+## Version 0.2.2.0
+
+* Relaxed `data-default-class` dependency that allows bilding with version
+  0.1.\*.
+* Introducing functions:
+    * `increment :: Verbosity -> Maybe Verbosity`
+    * `increment' :: Verbosity -> Verbosity`
+
 ## Version 0.2.1.0
 
 * Introducing optional instance for cereal's `Serialize` type class. Dependency
