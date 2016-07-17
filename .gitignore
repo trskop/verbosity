@@ -97,3 +97,11 @@ cabal.config
 *.aux
 *.hp
 # }}} Haskell.gitignore #######################################################
+
+# {{{ Local ###################################################################
+
+# Don't want to have a default stack file, since package is usually tested with
+# more then one Stackage versions.
+stack.yaml
+
+# }}} Local ###################################################################
