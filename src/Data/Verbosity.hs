@@ -16,7 +16,7 @@
 -- |
 -- Module:       $HEADER$
 -- Description:  Verbosity enum.
--- Copyright:    (c) 2015, Peter Trško
+-- Copyright:    (c) 2015-2016 Peter Trško
 -- License:      BSD3
 --
 -- Maintainer:   peter.trsko@gmail.com
@@ -27,6 +27,8 @@
 -- Simple enum that encodes application 'Verbosity'.
 module Data.Verbosity
     ( Verbosity(..)
+    , increment
+    , increment'
     , fromInt
 #ifdef DERIVE_DATA_TYPEABLE
     , parse
@@ -36,7 +38,7 @@ module Data.Verbosity
 
 import Prelude
     ( Bounded(maxBound, minBound)
-    , Enum(fromEnum, toEnum)
+    , Enum(fromEnum, succ, toEnum)
 #ifdef DECLARE_BINARY_INSTANCE
     , fromIntegral
 #endif
@@ -45,7 +47,7 @@ import Prelude
 import Data.Bool ((&&), otherwise)
 import Data.Eq (Eq)
 import Data.Int (Int)
-import Data.Maybe (Maybe(..))
+import Data.Maybe (Maybe(..), fromMaybe)
 import Data.Ord (Ord(..))
 import Text.Read (Read)
 import Text.Show (Show)
@@ -143,6 +145,22 @@ instance Cereal.Serialize Verbosity where
 instance NFData Verbosity where
     rnf !_ = ()
 #endif
+
+-- | Increment verbosity level. Return 'Nothing' if trying to icrement beyond
+-- 'maxBound'.
+increment :: Verbosity -> Maybe Verbosity
+increment v
+  | v < maxBound = Just (succ v)
+  | otherwise    = Nothing
+
+-- | Variant of 'increment' that doesn't fail when 'maxBound' is reached. It
+-- is defined as:
+--
+-- @
+-- 'increment'' v = 'fromMaybe' v ('increment' v)
+-- @
+increment' :: Verbosity -> Verbosity
+increment' v = fromMaybe v (increment v)
 
 -- | Safe version of 'toEnum' specialized to 'Verbosity'.
 fromInt :: Int -> Maybe Verbosity
