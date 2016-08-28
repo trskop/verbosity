@@ -37,16 +37,16 @@ install:
   - cabal --version
   - echo "$(ghc --version) [$(ghc --print-project-git-commit-id 2> /dev/null || echo '?')]"
   - travis_retry cabal update
-  - cabal install --only-dependencies --enable-tests --enable-benchmarks --flags='pedantic data-typeable ghc-generics binary data-default deepseq cereal'
+  - cabal install --only-dependencies --enable-tests --enable-benchmarks --flags='pedantic data-typeable ghc-generics binary data-default deepseq cereal safecopy'
 
 script:
   # Option -fpedantic turns on additional wornings in addition to -Wall.
-  - cabal configure --flags='pedantic data-typeable ghc-generics binary data-default deepseq cereal'
+  - cabal configure --flags='pedantic data-typeable ghc-generics binary data-default deepseq cereal safecopy'
   - cabal build
 
   # This only checks if it is able to compile without additional features,
   # unfortunately it doesn't check interaction between various build flags.
-  - cabal configure --flags='pedantic -data-typeable -ghc-generics -binary -data-default -deepseq -cereal'
+  - cabal configure --flags='pedantic -data-typeable -ghc-generics -binary -data-default -deepseq -cereal -safecopy'
   - cabal build
 
   # Following line tests if sdist package is created correctly.
