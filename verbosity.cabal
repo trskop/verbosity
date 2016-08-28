@@ -1,5 +1,5 @@
 name:                   verbosity
-version:                0.2.2.0
+version:                0.2.3.0
 synopsis:               Simple enum that encodes application verbosity.
 description:
   Simple enum that encodes application verbosity with various useful instances.
@@ -132,4 +132,4 @@ source-repository head
 source-repository this
   type:                 git
   location:             git://github.com/trskop/verbosity.git
-  tag:                  0.2.2.0
+  tag:                  0.2.3.0

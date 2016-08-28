@@ -1,31 +1,42 @@
 # ChangeLog / ReleaseNotes
 
 
+## Version 0.2.3.0
+
+* Introducing function
+  `modifyVerbosity :: HasVerbosity s => (Verbosity -> Verbosity) -> s -> s`
+  (**new**)
+* Introducing optional instance for safecopy's `SafeCopy` type class. Dependency
+  on `safecopy` package can be enabled using `-fsafecopy` build flag. (**new**)
+
+
 ## Version 0.2.2.0
 
 * Relaxed `data-default-class` dependency that allows bilding with version
-  0.1.\*.
-* Introducing functions:
+  0.1.\*. (**change**)
+* Introducing functions (**new**):
     * `increment :: Verbosity -> Maybe Verbosity`
     * `increment' :: Verbosity -> Verbosity`
+* Uploaded to [Hackage][]: <http://hackage.haskell.org/package/verbosity-0.2.2.0>
+
 
 ## Version 0.2.1.0
 
 * Introducing optional instance for cereal's `Serialize` type class. Dependency
-  on `cereal` package can be enabled using `-fcereal` build flag. (new)
+  on `cereal` package can be enabled using `-fcereal` build flag. (**new**)
 * Uploaded to [Hackage][]: <http://hackage.haskell.org/package/verbosity-0.2.1.0>
 
 
 ## Version 0.2.0.0
 
 * Introducing module `Data.Verbosity.Class` which contains definition of
-  `HasVerbosity` type class. (new)
-* Introducing function `fromInt :: Int -> Maybe Verbosity`. (new)
+  `HasVerbosity` type class. (**new**)
+* Introducing function `fromInt :: Int -> Maybe Verbosity`. (**new**)
 * Introducing function
-  `parse :: (Eq string, IsString string) => string -> Maybe Verbosity`. (new)
+  `parse :: (Eq string, IsString string) => string -> Maybe Verbosity`. (**new**)
 * NFData instance, if compiled with `-fdeepseq`, which is the default case.
-  (new)
-* Depends on [transformers][] package in case [base][] <4.8. (new)
+  (**new**)
+* Depends on [transformers][] package in case [base][] <4.8. (**new**)
 * Uploaded to [Hackage][]: <http://hackage.haskell.org/package/verbosity-0.2.0.0>
 
 
