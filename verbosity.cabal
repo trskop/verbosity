@@ -55,6 +55,10 @@ flag cereal
   description:          Define instance for Serialize type class.
   default:              False
 
+flag safecopy
+  description:          Define instance for SafeCopy type class.
+  default:              False
+
 library
   hs-source-dirs:       src
   exposed-modules:      Data.Verbosity, Data.Verbosity.Class
@@ -110,6 +114,16 @@ library
   if flag(cereal)
     cpp-options:        -DDECLARE_SERIALIZE_INSTANCE
     build-depends:      cereal >=0.1 && <0.6
+
+  if flag(safecopy)
+    cpp-options:        -DDECLARE_SAFECOPY_INSTANCE
+    build-depends:      safecopy >=0.5 && <0.10
+    -- Version 0.5 introduced:
+    --
+    --   deriveSafeCopy :: Version a -> Name -> Name -> Q [Dec]
+    --
+    -- It's type signature hadn't changed since. Latest version of safecopy at
+    -- the moment of writing this is 0.9.1.
 
 source-repository head
   type:                 git

@@ -46,6 +46,7 @@ extra-deps: []
 flags:
   verbosity:
     cereal: True
+    safecopy: True
     pedantic: True
 
 # Extra package databases containing global packages

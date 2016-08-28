@@ -43,7 +43,11 @@ packages:
 extra-deps: []
 
 # Override default flag values for local packages and extra-deps
-flags: {}
+flags:
+  verbosity:
+    cereal: True
+    safecopy: True
+    pedantic: True
 
 # Extra package databases containing global packages
 extra-package-dbs: []

@@ -13,6 +13,10 @@
 {-# LANGUAGE BangPatterns #-}
 #endif
 
+#ifdef DECLARE_SAFECOPY_INSTANCE
+{-# LANGUAGE TemplateHaskell #-}
+#endif
+
 -- |
 -- Module:       $HEADER$
 -- Description:  Verbosity enum.
@@ -21,8 +25,9 @@
 --
 -- Maintainer:   peter.trsko@gmail.com
 -- Stability:    experimental
--- Portability:  BangPatterns (optional), CPP, NoImplicitPrelude,
---               DeriveDataTypeable (optional), DeriveGeneric (optional)
+-- Portability:  BangPatterns (optional), CPP, DeriveDataTypeable (optional),
+--               DeriveGeneric (optional), NoImplicitPrelude,
+--               TemplateHaskell (optional)
 --
 -- Simple enum that encodes application 'Verbosity'.
 module Data.Verbosity
@@ -70,6 +75,11 @@ import Data.Function ((.))
 #ifdef DECLARE_BINARY_INSTANCE
 import Data.Binary (Binary(get, put))
 import qualified Data.Binary as Binary (getWord8, putWord8)
+#endif
+
+#ifdef DECLARE_SAFECOPY_INSTANCE
+import Data.SafeCopy (deriveSafeCopy)
+import qualified Data.SafeCopy as SafeCopy (base)
 #endif
 
 #ifdef DECLARE_SERIALIZE_INSTANCE
@@ -139,6 +149,10 @@ instance Binary Verbosity where
 instance Cereal.Serialize Verbosity where
     get = toEnum . fromIntegral <$> Cereal.getWord8
     put = Cereal.putWord8 . fromIntegral . fromEnum
+#endif
+
+#ifdef DECLARE_SAFECOPY_INSTANCE
+deriveSafeCopy 0 'SafeCopy.base ''Verbosity
 #endif
 
 #ifdef DECLARE_NFDATA_INSTANCE
