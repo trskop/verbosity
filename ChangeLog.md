@@ -8,6 +8,7 @@
   (**new**)
 * Introducing optional instance for safecopy's `SafeCopy` type class. Dependency
   on `safecopy` package can be enabled using `-fsafecopy` build flag. (**new**)
+* Uploaded to [Hackage][]: <http://hackage.haskell.org/package/verbosity-0.2.3.0>
 
 
 ## Version 0.2.2.0
