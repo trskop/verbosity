@@ -75,7 +75,7 @@ modifyVerbosity f = runIdentity . verbosity (Identity . f)
 -- @
 -- instance 'HasVerbosity' Config where
 --     verbosity f c@Config{_appVerbosity = a} =
---         (\b -> c{_appVerbosity = b}) 'Data.Functor.<$>' f a
+--         (\\b -> c{_appVerbosity = b}) 'Data.Functor.<$>' f a
 -- @
 
 -- $thUsageExample
