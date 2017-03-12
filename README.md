@@ -8,17 +8,11 @@
 [![Build](https://travis-ci.org/trskop/verbosity.svg)](https://travis-ci.org/trskop/verbosity)
 
 
-# Description
+## Description
 
 Simple enum that encodes application verbosity with various useful instances.
 
 
-[Hackage: verbosity]:
-  http://hackage.haskell.org/package/verbosity
-  "verbosity package on Hackage"
-[Haskell.org]:
-  http://www.haskell.org
-  "The Haskell Programming Language"
-[tl;dr Legal: BSD3]:
-  https://tldrlegal.com/license/bsd-3-clause-license-%28revised%29
-  "BSD 3-Clause License (Revised)"
+[Hackage: verbosity]: http://hackage.haskell.org/package/verbosity "verbosity package on Hackage"
+[Haskell.org]: http://www.haskell.org "The Haskell Programming Language"
+[tl;dr Legal: BSD3]: https://tldrlegal.com/license/bsd-3-clause-license-%28revised%29 "BSD 3-Clause License (Revised)"
