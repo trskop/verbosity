@@ -1,6 +1,15 @@
 # ChangeLog / ReleaseNotes
 
 
+## Version NEXT
+
+* Optional instances for `JoinSemiLattice`, `MeetSemiLattice`,
+  `BoundedJoinSemiLattice`, `BoundedMeetSemiLattice`, `Lattice`, and
+  `BoundedLattice`. Use `-flattices` build flag to enable. (**new**)
+* Updated documentation to include example that uses `generic-lens` to define
+  `HasVerbosity` instances. (**minor change**)
+
+
 ## Version 0.2.3.0
 
 * Introducing function
