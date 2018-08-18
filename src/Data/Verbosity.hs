@@ -20,14 +20,12 @@
 -- |
 -- Module:       $HEADER$
 -- Description:  Verbosity enum.
--- Copyright:    (c) 2015-2016 Peter Trško
+-- Copyright:    (c) 2015-2018 Peter Trško
 -- License:      BSD3
 --
 -- Maintainer:   peter.trsko@gmail.com
 -- Stability:    experimental
--- Portability:  BangPatterns (optional), CPP, DeriveDataTypeable (optional),
---               DeriveGeneric (optional), NoImplicitPrelude,
---               TemplateHaskell (optional)
+-- Portability:  GHC specific language extensions.
 --
 -- Simple enum that encodes application 'Verbosity'.
 module Data.Verbosity
@@ -53,7 +51,13 @@ import Data.Bool ((&&), otherwise)
 import Data.Eq (Eq)
 import Data.Int (Int)
 import Data.Maybe (Maybe(..), fromMaybe)
-import Data.Ord (Ord(..))
+import Data.Ord
+    ( Ord(..)
+#ifdef DECLARE_LATTICE_INSTANCES
+    , max
+    , min
+#endif
+    )
 import Text.Read (Read)
 import Text.Show (Show)
 
@@ -92,6 +96,17 @@ import Data.Default.Class (Default(def))
 
 #ifdef DECLARE_NFDATA_INSTANCE
 import Control.DeepSeq (NFData(rnf))
+#endif
+
+#ifdef DECLARE_LATTICE_INSTANCES
+import Algebra.Lattice
+    ( BoundedJoinSemiLattice(bottom)
+    , BoundedLattice
+    , BoundedMeetSemiLattice(top)
+    , JoinSemiLattice((\/))
+    , Lattice
+    , MeetSemiLattice((/\))
+    )
 #endif
 
 
@@ -158,6 +173,27 @@ deriveSafeCopy 0 'SafeCopy.base ''Verbosity
 #ifdef DECLARE_NFDATA_INSTANCE
 instance NFData Verbosity where
     rnf !_ = ()
+#endif
+
+#ifdef DECLARE_LATTICE_INSTANCES
+-- | @('\/') = 'max'@
+instance JoinSemiLattice Verbosity where
+    (\/) = max
+
+-- | @'bottom' = 'Silent'@
+instance BoundedJoinSemiLattice Verbosity where
+    bottom = minBound
+
+-- | @('/\') = 'min'@
+instance MeetSemiLattice Verbosity where
+    (/\) = min
+
+-- | @'top' = 'Annoying'@
+instance BoundedMeetSemiLattice Verbosity where
+    top = maxBound
+
+instance Lattice Verbosity
+instance BoundedLattice Verbosity
 #endif
 
 -- | Increment verbosity level. Return 'Nothing' if trying to icrement beyond

@@ -60,6 +60,12 @@ flag safecopy
   description:          Define instance for SafeCopy type class.
   default:              False
 
+flag lattices
+  description:          Define instances for JoinSemiLattice, MeetSemiLattice,
+                        BoundedJoinSemiLattice, BoundedMeetSemiLattice,
+                        Lattice, and BoundedLattice.
+  default:              False
+
 library
   hs-source-dirs:       src
   exposed-modules:      Data.Verbosity, Data.Verbosity.Class
@@ -125,6 +131,10 @@ library
     --
     -- It's type signature hadn't changed since. Latest version of safecopy at
     -- the moment of writing this is 0.9.1.
+
+  if flag(lattices)
+    cpp-options:        -DDECLARE_LATTICE_INSTANCES
+    build-depends:      lattices >=1.4 && <2
 
 source-repository head
   type:                 git
