@@ -5,7 +5,11 @@
 
 * Optional instances for `JoinSemiLattice`, `MeetSemiLattice`,
   `BoundedJoinSemiLattice`, `BoundedMeetSemiLattice`, `Lattice`, and
-  `BoundedLattice`. Use `-flattices` build flag to enable. (**new**)
+  `BoundedLattice`. Dependency on `lattices` package can be enabled using
+  `-flattices` build flag. (**new**)
+* Optional instances for `Dhall.Interpret` `Dhall.Inject` type classes.
+  Dependency on `dhall` package can be enabled using `-fdhall` build flag.
+  (**new**)
 * Updated documentation to include example that uses `generic-lens` to define
   `HasVerbosity` instances. (**minor change**)
 

@@ -20,3 +20,4 @@ flags:
     pedantic: True
     safecopy: True
     lattices: True
+    dhall: True

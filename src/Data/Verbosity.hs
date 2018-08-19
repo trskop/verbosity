@@ -109,6 +109,9 @@ import Algebra.Lattice
     )
 #endif
 
+#ifdef DECLARE_DHALL_INSTANCES
+import Dhall (Inject, Interpret)
+#endif
 
 -- | Ordering:
 --
@@ -194,6 +197,11 @@ instance BoundedMeetSemiLattice Verbosity where
 
 instance Lattice Verbosity
 instance BoundedLattice Verbosity
+#endif
+
+#ifdef DECLARE_DHALL_INSTANCES
+instance Inject Verbosity
+instance Interpret Verbosity
 #endif
 
 -- | Increment verbosity level. Return 'Nothing' if trying to icrement beyond
