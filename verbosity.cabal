@@ -70,7 +70,7 @@ flag lattices
 
 flag dhall
   description:          Define Verbosity instance for (Dhall) Interpret type
-                        class.
+                        class. Implies `ghc-generics` flag as well.
   default:              False
 
 library
@@ -145,6 +145,7 @@ library
 
   if flag(dhall)
     cpp-options:        -DDECLARE_DHALL_INSTANCES
+                        -DDERIVE_GHC_GENERICS
     build-depends:      dhall >=1.0.1 && <2
 
 source-repository head
