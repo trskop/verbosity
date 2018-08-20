@@ -1,7 +1,7 @@
 # ChangeLog / ReleaseNotes
 
 
-## Version NEXT
+## Version 0.3.0.0
 
 * Optional instances for `JoinSemiLattice`, `MeetSemiLattice`,
   `BoundedJoinSemiLattice`, `BoundedMeetSemiLattice`, `Lattice`, and

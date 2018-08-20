@@ -7,7 +7,7 @@
 --
 -- Maintainer:   peter.trsko@gmail.com
 -- Stability:    experimental
--- Portability:  NoImplicitPrelude
+-- Portability:  GHC specific language extensions.
 --
 -- Type class for accessing 'Verbosity'.
 module Data.Verbosity.Class
