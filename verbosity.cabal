@@ -100,7 +100,14 @@ library
     build-depends:      transformers >=0.2 && <0.4 || >=0.4.1 && <0.6
 
   if flag(pedantic)
-    ghc-options:        -fwarn-implicit-prelude
+    if impl(ghc >=8)
+      ghc-options:      -Wimplicit-prelude
+                        -Wmissing-export-lists
+                        -Wredundant-constraints
+                        -Werror
+    else
+      ghc-options:      -fwarn-implicit-prelude
+                        -fwarn-missing-export-lists
 
   if flag(ghc-generics)
     cpp-options:        -DDERIVE_GHC_GENERICS

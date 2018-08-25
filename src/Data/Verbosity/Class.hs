@@ -35,10 +35,10 @@ module Data.Verbosity.Class
     )
   where
 
-import Control.Applicative (Const(..))
+import Control.Applicative (Const(Const, getConst))
 import Data.Function ((.), ($), const)
 import Data.Functor (Functor)
-import Data.Functor.Identity (Identity(..))
+import Data.Functor.Identity (Identity(Identity, runIdentity))
 
 import Data.Verbosity
 

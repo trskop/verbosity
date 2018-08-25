@@ -50,9 +50,12 @@ import Prelude
 import Data.Bool ((&&), otherwise)
 import Data.Eq (Eq)
 import Data.Int (Int)
-import Data.Maybe (Maybe(..), fromMaybe)
+import Data.Maybe (Maybe(Just, Nothing), fromMaybe)
 import Data.Ord
-    ( Ord(..)
+    ( Ord
+    , (<)
+    , (<=)
+    , (>=)
 #ifdef DECLARE_LATTICE_INSTANCES
     , max
     , min
