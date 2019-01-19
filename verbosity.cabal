@@ -23,8 +23,8 @@ cabal-version:          >=1.10
 extra-source-files:
     ChangeLog.md
   , README.md
-  , dhall/Verbosity.dhall
-  , dhall/Verbosity/*.dhall
+  , dhall/Verbosity/Type
+  , dhall/Verbosity/fold
   , example/Example/Config.hs
   , example/Example/ConfigTH.hs
   , example/Example/ConfigGenericLens.hs
