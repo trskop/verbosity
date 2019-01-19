@@ -10,7 +10,7 @@ license:                BSD3
 license-file:           LICENSE
 author:                 Peter Trško
 maintainer:             peter.trsko@gmail.com
-copyright:              (c) 2015-2018 Peter Trško
+copyright:              (c) 2015-2019 Peter Trško
 category:               Data
 build-type:             Simple
 cabal-version:          >=1.10
@@ -33,14 +33,6 @@ flag pedantic
   description:          Pass additional warning flags to GHC.
   default:              False
   manual:               True
-
-flag data-typeable
-  description:          Derive instances for Data and Typeable type classes.
-  default:              True
-
-flag ghc-generics
-  description:          Derive instances for Generic type class.
-  default:              True
 
 flag binary
   description:          Derive instances for Binary type class.
@@ -82,42 +74,18 @@ library
       BangPatterns
     -- ^ With -fdeepseq
     , CPP
-    , NoImplicitPrelude
     , DeriveDataTypeable
-    -- ^ With -fdata-typeable
     , DeriveGeneric
-    -- ^ With -fghc-generics
+    , NoImplicitPrelude
 
   build-depends:        base >=4 && <5
-  ghc-options:          -Wall -fwarn-tabs
-
-  -- Package base bundled with GHC <7.10 (i.e. base <4.8) doesn't include
-  -- Data.Functor.Identity module.
-  if impl(ghc <7.10)
-    -- Versions of transformers <0.2 doesn't include Data.Functor.Identity,
-    -- which is used by this package, and version 0.4.0.0 of transformers is
-    -- deprecated.
-    build-depends:      transformers >=0.2 && <0.4 || >=0.4.1 && <0.6
+  ghc-options:          -Wall
 
   if flag(pedantic)
-    if impl(ghc >=8)
-      ghc-options:      -Wimplicit-prelude
+    ghc-options:        -Wimplicit-prelude
                         -Wmissing-export-lists
                         -Wredundant-constraints
                         -Werror
-    else
-      ghc-options:      -fwarn-implicit-prelude
-                        -fwarn-missing-export-lists
-
-  if flag(ghc-generics)
-    cpp-options:        -DDERIVE_GHC_GENERICS
-
-    -- GHC.Generics moved from ghc-prim to base with GHC 7.6 release.
-    if impl(ghc >=7.2 && <7.6)
-      build-depends:    ghc-prim
-
-  if flag(data-typeable)
-    cpp-options:        -DDERIVE_DATA_TYPEABLE
 
   if flag(binary)
     build-depends:      binary >=0.5 && <0.9

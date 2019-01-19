@@ -1,7 +1,8 @@
 # For advanced use and comprehensive documentation of the format, please see:
 # http://docs.haskellstack.org/en/stable/yaml_configuration/
 
-resolver: lts-12.12
+# Last version of LTS 11 resolver. (GHC 8.4.4)
+resolver: lts-12.26
 
 packages:
   - '.'
@@ -13,9 +14,7 @@ flags:
     binary: True
     cereal: True
     data-default: True
-    data-typeable: True
     deepseq: True
-    ghc-generics: True
     pedantic: True
     safecopy: True
     lattices: True

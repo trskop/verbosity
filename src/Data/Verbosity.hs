@@ -1,13 +1,7 @@
 {-# LANGUAGE CPP #-}
-{-# LANGUAGE NoImplicitPrelude #-}
-
-#ifdef DERIVE_DATA_TYPEABLE
 {-# LANGUAGE DeriveDataTypeable #-}
-#endif
-
-#ifdef DERIVE_GHC_GENERICS
 {-# LANGUAGE DeriveGeneric #-}
-#endif
+{-# LANGUAGE NoImplicitPrelude #-}
 
 #ifdef DECLARE_NFDATA_INSTANCE
 {-# LANGUAGE BangPatterns #-}
@@ -20,7 +14,7 @@
 -- |
 -- Module:       $HEADER$
 -- Description:  Verbosity enum.
--- Copyright:    (c) 2015-2018 Peter Trško
+-- Copyright:    (c) 2015-2019 Peter Trško
 -- License:      BSD3
 --
 -- Maintainer:   peter.trsko@gmail.com
@@ -33,9 +27,7 @@ module Data.Verbosity
     , increment
     , increment'
     , fromInt
-#ifdef DERIVE_DATA_TYPEABLE
     , parse
-#endif
     )
   where
 
@@ -61,18 +53,12 @@ import Data.Ord
     , min
 #endif
     )
-import Text.Read (Read)
-import Text.Show (Show)
-
-#ifdef DERIVE_DATA_TYPEABLE
 import Data.Data (Data(toConstr), Typeable, showConstr)
 import Data.List (lookup)
 import Data.String (IsString(fromString))
-#endif
-
-#ifdef DERIVE_GHC_GENERICS
 import GHC.Generics (Generic)
-#endif
+import Text.Read (Read)
+import Text.Show (Show)
 
 #if defined(DECLARE_BINARY_INSTANCE) || defined(DECLARE_SERIALIZE_INSTANCE)
 import Control.Applicative ((<$>))
@@ -143,13 +129,15 @@ data Verbosity
     | Annoying
     -- ^ Print debugging/tracing information.
   deriving
-    ( Bounded, Enum, Eq, Ord, Read, Show
-#ifdef DERIVE_GHC_GENERICS
+    ( Bounded
+    , Data
+    , Enum
+    , Eq
     , Generic
-#endif
-#ifdef DERIVE_DATA_TYPEABLE
-    , Data, Typeable
-#endif
+    , Ord
+    , Read
+    , Show
+    , Typeable
     )
 
 #ifdef DECLARE_DEFAULT_INSTANCE
@@ -234,7 +222,6 @@ fromInt n
     minVerbosity = fromEnum (minBound :: Verbosity)
     maxVerbosity = fromEnum (maxBound :: Verbosity)
 
-#ifdef DERIVE_DATA_TYPEABLE
 -- | Generic 'Verbosity' parsing function.
 --
 -- Use <https://hackage.haskell.org/package/case-insensitive case-insensitive>
@@ -250,4 +237,3 @@ parse :: (Eq string, IsString string) => string -> Maybe Verbosity
 parse = (`lookup` [(str v, v) | v <- [minBound..maxBound :: Verbosity]])
   where
     str = fromString . showConstr . toConstr
-#endif

@@ -12,6 +12,9 @@
   (**new**)
 * Updated documentation to include example that uses `generic-lens` to define
   `HasVerbosity` instances. (**minor change**)
+* Dropped support for GHC \< 8.  As a consequence `Data`, `Generic`, and
+  `Typeable` are always derived.  The last one is implied by the fact that GHC
+  now always deririves it. (**breaking change**)
 
 
 ## Version 0.2.3.0
