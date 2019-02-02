@@ -9,12 +9,16 @@
   `-flattices` build flag. (**new**)
 * Optional instances for `Dhall.Interpret` `Dhall.Inject` type classes.
   Dependency on `dhall` package can be enabled using `-fdhall` build flag.
+  Enabled by default. (**new**)
+* Optional instances for `Serialise` type class from `serialise` package that
+  provides CBOR serialisation/deserialisation.  Dependency on `serialise`
+  package can be enabled using `-fserialise` build flag.  Enabled by default.
   (**new**)
-* Updated documentation to include example that uses `generic-lens` to define
-  `HasVerbosity` instances. (**minor change**)
-* Dropped support for GHC \< 8.  As a consequence `Data`, `Generic`, and
+* `HasVerbosity` type class now provides default implementation for `verbosity`
+   lens that uses `generic-lens`. (**change/new**)
+* Dropped support for GHC \< 8.2.  As a consequence `Data`, `Generic`, and
   `Typeable` are always derived.  The last one is implied by the fact that GHC
-  now always deririves it. (**breaking change**)
+  now always derives it. (**breaking change**)
 
 
 ## Version 0.2.3.0

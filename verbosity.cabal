@@ -78,11 +78,13 @@ library
       BangPatterns
     -- ^ With -fdeepseq
     , CPP
+    , DefaultSignatures
     , DeriveAnyClass
     -- ^ With -fdhall
     , DeriveDataTypeable
     , DeriveGeneric
     , DerivingStrategies
+    , FlexibleContexts
     , FlexibleInstances
     , KindSignatures
     , LambdaCase
@@ -94,6 +96,7 @@ library
   -- Version 4.10 of base was bundled with GHC 8.2, which is the first version
   -- that supports DerivingStrategies.
   build-depends:        base >=4.10 && <5
+                      , generic-lens >=1.0.0.2 && <2
   ghc-options:          -Wall
 
   if flag(pedantic)

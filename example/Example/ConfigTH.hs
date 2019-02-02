@@ -23,6 +23,7 @@ import Data.Verbosity.Class
 
 data Config = Config
     { _appVerbosity :: Verbosity
+--  , ...
     }
   deriving Show
 
