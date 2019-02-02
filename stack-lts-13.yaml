@@ -2,7 +2,7 @@
 # http://docs.haskellstack.org/en/stable/yaml_configuration/
 
 # (GHC 8.6.3)
-resolver: lts-13.3
+resolver: lts-13.5
 
 packages:
   - '.'
@@ -19,3 +19,4 @@ flags:
     safecopy: True
     lattices: True
     dhall: True
+    serialise: True

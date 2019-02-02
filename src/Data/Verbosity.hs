@@ -121,6 +121,11 @@ import Algebra.Lattice
 import qualified Dhall (Inject, Interpret)
 #endif
 
+#ifdef DECLARE_SERIALISE_INSTANCE
+import Codec.Serialise (Serialise)
+#endif
+
+
 -- | Ordering:
 --
 -- @
@@ -159,6 +164,9 @@ data Verbosity
     )
 #ifdef DECLARE_DHALL_INSTANCES
   deriving anyclass (Dhall.Inject, Dhall.Interpret)
+#endif
+#ifdef DECLARE_SERIALISE_INSTANCE
+  deriving anyclass (Serialise)
 #endif
 
 #ifdef DECLARE_DEFAULT_INSTANCE
