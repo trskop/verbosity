@@ -74,11 +74,22 @@ library
       BangPatterns
     -- ^ With -fdeepseq
     , CPP
+    , DeriveAnyClass
+    -- ^ With -fdhall
     , DeriveDataTypeable
     , DeriveGeneric
+    , DerivingStrategies
+    , FlexibleInstances
+    , KindSignatures
+    , LambdaCase
     , NoImplicitPrelude
+    , TemplateHaskell
+    -- ^ With -fsafecopy
+    , TypeOperators
 
-  build-depends:        base >=4 && <5
+  -- Version 4.10 of base was bundled with GHC 8.2, which is the first version
+  -- that supports DerivingStrategies.
+  build-depends:        base >=4.10 && <5
   ghc-options:          -Wall
 
   if flag(pedantic)
@@ -120,7 +131,6 @@ library
 
   if flag(dhall)
     cpp-options:        -DDECLARE_DHALL_INSTANCES
-                        -DDERIVE_GHC_GENERICS
     build-depends:      dhall >=1.0.1 && <2
 
 source-repository head

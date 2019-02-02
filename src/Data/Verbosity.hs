@@ -1,7 +1,12 @@
 {-# LANGUAGE CPP #-}
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DerivingStrategies #-}
+{-# LANGUAGE FlexibleInstances #-}
+{-# LANGUAGE KindSignatures #-}
+{-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE NoImplicitPrelude #-}
+{-# LANGUAGE TypeOperators #-}
 
 #ifdef DECLARE_NFDATA_INSTANCE
 {-# LANGUAGE BangPatterns #-}
@@ -9,6 +14,10 @@
 
 #ifdef DECLARE_SAFECOPY_INSTANCE
 {-# LANGUAGE TemplateHaskell #-}
+#endif
+
+#ifdef DECLARE_DHALL_INSTANCES
+{-# LANGUAGE DeriveAnyClass #-}
 #endif
 
 -- |
@@ -40,8 +49,11 @@ import Prelude
     )
 
 import Data.Bool ((&&), otherwise)
+import Data.Data (Data)
 import Data.Eq (Eq)
 import Data.Int (Int)
+import Data.Kind (Type)
+import Data.List (lookup)
 import Data.Maybe (Maybe(Just, Nothing), fromMaybe)
 import Data.Ord
     ( Ord
@@ -53,10 +65,17 @@ import Data.Ord
     , min
 #endif
     )
-import Data.Data (Data(toConstr), Typeable, showConstr)
-import Data.List (lookup)
-import Data.String (IsString(fromString))
-import GHC.Generics (Generic)
+import Data.String (IsString, String, fromString)
+import GHC.Generics
+    ( (:+:)(L1, R1)
+    , C1
+    , Constructor
+    , D1
+    , Generic
+    , M1(M1)
+    , conName
+    , from
+    )
 import Text.Read (Read)
 import Text.Show (Show)
 
@@ -99,7 +118,7 @@ import Algebra.Lattice
 #endif
 
 #ifdef DECLARE_DHALL_INSTANCES
-import Dhall (Inject, Interpret)
+import qualified Dhall (Inject, Interpret)
 #endif
 
 -- | Ordering:
@@ -128,7 +147,7 @@ data Verbosity
     -- ^ Print anything that comes in to mind.
     | Annoying
     -- ^ Print debugging/tracing information.
-  deriving
+  deriving stock
     ( Bounded
     , Data
     , Enum
@@ -137,8 +156,10 @@ data Verbosity
     , Ord
     , Read
     , Show
-    , Typeable
     )
+#ifdef DECLARE_DHALL_INSTANCES
+  deriving anyclass (Dhall.Inject, Dhall.Interpret)
+#endif
 
 #ifdef DECLARE_DEFAULT_INSTANCE
 -- | @'def' = 'Normal'@
@@ -190,11 +211,6 @@ instance Lattice Verbosity
 instance BoundedLattice Verbosity
 #endif
 
-#ifdef DECLARE_DHALL_INSTANCES
-instance Inject Verbosity
-instance Interpret Verbosity
-#endif
-
 -- | Increment verbosity level. Return 'Nothing' if trying to icrement beyond
 -- 'maxBound'.
 increment :: Verbosity -> Maybe Verbosity
@@ -236,4 +252,23 @@ fromInt n
 parse :: (Eq string, IsString string) => string -> Maybe Verbosity
 parse = (`lookup` [(str v, v) | v <- [minBound..maxBound :: Verbosity]])
   where
-    str = fromString . showConstr . toConstr
+    str = fromString . gDataConstructorName . from
+
+class HasDataConstructors (f :: Type -> Type) where
+    gDataConstructorName :: f x -> String
+
+instance HasDataConstructors f => HasDataConstructors (D1 c f) where
+    gDataConstructorName (M1 x) = gDataConstructorName x
+
+instance
+    ( HasDataConstructors x
+    , HasDataConstructors y
+    )
+    => HasDataConstructors (x :+: y)
+  where
+    gDataConstructorName = \case
+        L1 l -> gDataConstructorName l
+        R1 r -> gDataConstructorName r
+
+instance Constructor c => HasDataConstructors (C1 c f) where
+    gDataConstructorName = conName
