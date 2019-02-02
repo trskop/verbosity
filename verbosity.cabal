@@ -107,7 +107,7 @@ library
                         -Werror
 
   if flag(binary)
-    build-depends:      binary >=0.5 && <0.9
+    build-depends:      binary >=0.5 && <0.11
     cpp-options:        -DDECLARE_BINARY_INSTANCE
 
   if flag(data-default)
