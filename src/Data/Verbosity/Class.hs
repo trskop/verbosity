@@ -49,6 +49,8 @@ import Data.Verbosity
 
 class HasVerbosity s where
     -- | Lens for accessing 'Verbosity' embedded in the type @s@.
+    --
+    -- /Default implementaton in terms of 'HasType' added in version 0.3.0.0./
     verbosity :: Functor f => (Verbosity -> f Verbosity) -> s -> f s
 
     default verbosity
