@@ -7,10 +7,10 @@ in  -- Version of `merge` specialised to `Verbosity`.  This way we don't need
     -- fold
     --   : ∀(r : Type)
     --   → ∀ (handler
-    --         : { Silent : {} → r
-    --           , Normal : {} → r
-    --           , Verbose : {} → r
-    --           , Annoying : {} → r
+    --         : { Silent : r
+    --           , Normal : r
+    --           , Verbose : r
+    --           , Annoying : r
     --           }
     --       )
     --   → ∀(verbosity : Verbosity)
@@ -18,10 +18,10 @@ in  -- Version of `merge` specialised to `Verbosity`.  This way we don't need
     -- ```
       λ(r : Type)
     → λ(handler
-          : { Silent : {} → r
-            , Normal : {} → r
-            , Verbose : {} → r
-            , Annoying : {} → r
+          : { Silent : r
+            , Normal : r
+            , Verbose : r
+            , Annoying : r
             }
         )
     → λ(verbosity : Verbosity)

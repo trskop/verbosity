@@ -144,7 +144,9 @@ library
 
   if flag(dhall)
     cpp-options:        -DDECLARE_DHALL_INSTANCES
-    build-depends:      dhall >=1.0.1 && <2
+    build-depends:      dhall >=1.23.0 && <2
+    -- Version 1.22.0 supported Dhall Standard 7.0.0, however, it failed to
+    -- deserialise new-style enums properly, which was fixed in version 1.23.0.
 
   if flag(serialise)
     cpp-options:        -DDECLARE_SERIALISE_INSTANCE
