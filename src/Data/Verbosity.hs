@@ -23,7 +23,7 @@
 -- |
 -- Module:       $HEADER$
 -- Description:  Verbosity enum.
--- Copyright:    (c) 2015-2019 Peter Trško
+-- Copyright:    (c) 2015-2020 Peter Trško
 -- License:      BSD3
 --
 -- Maintainer:   peter.trsko@gmail.com
@@ -98,15 +98,18 @@ import qualified Data.SafeCopy as SafeCopy (base)
 import qualified Data.Serialize as Cereal (Serialize(..), getWord8, putWord8)
 #endif
 
-#ifdef DECLARE_DEFAULT_INSTANCE
-import Data.Default.Class (Default(def))
-#endif
-
 #ifdef DECLARE_NFDATA_INSTANCE
 import Control.DeepSeq (NFData(rnf))
 #endif
 
 #ifdef DECLARE_LATTICE_INSTANCES
+#if MIN_VERSION_lattices(2,0,0)
+import Algebra.Lattice
+    ( BoundedJoinSemiLattice(bottom)
+    , BoundedMeetSemiLattice(top)
+    , Lattice((/\), (\/))
+    )
+#else
 import Algebra.Lattice
     ( BoundedJoinSemiLattice(bottom)
     , BoundedLattice
@@ -116,9 +119,14 @@ import Algebra.Lattice
     , MeetSemiLattice((/\))
     )
 #endif
+#endif
 
 #ifdef DECLARE_DHALL_INSTANCES
+#if MIN_VERSION_dhall(1,27,0)
+import Dhall (FromDhall, ToDhall)
+#else
 import qualified Dhall (Inject, Interpret)
+#endif
 #endif
 
 #ifdef DECLARE_SERIALISE_INSTANCE
@@ -149,9 +157,9 @@ data Verbosity
     | Normal
     -- ^ Print only important messages. (default)
     | Verbose
-    -- ^ Print anything that comes in to mind.
+    -- ^ Print anything that comes to mind.
     | Annoying
-    -- ^ Print debugging/tracing information.
+    -- ^ Print debugging\/tracing information.
   deriving stock
     ( Bounded
     , Data
@@ -163,16 +171,14 @@ data Verbosity
     , Show
     )
 #ifdef DECLARE_DHALL_INSTANCES
+#if MIN_VERSION_dhall(1,27,0)
+  deriving anyclass (FromDhall, ToDhall)
+#else
   deriving anyclass (Dhall.Inject, Dhall.Interpret)
+#endif
 #endif
 #ifdef DECLARE_SERIALISE_INSTANCE
   deriving anyclass (Serialise)
-#endif
-
-#ifdef DECLARE_DEFAULT_INSTANCE
--- | @'def' = 'Normal'@
-instance Default Verbosity where
-    def = Normal
 #endif
 
 #ifdef DECLARE_BINARY_INSTANCE
@@ -199,6 +205,27 @@ instance NFData Verbosity where
 #endif
 
 #ifdef DECLARE_LATTICE_INSTANCES
+
+#if MIN_VERSION_lattices(2,0,0)
+-- |
+-- @
+-- ('\/') = 'max'
+-- ('/\') = 'min'
+-- @
+instance Lattice Verbosity where
+    (\/) = max
+    (/\) = min
+
+-- | @'bottom' = 'Silent'@
+instance BoundedJoinSemiLattice Verbosity where
+    bottom = minBound
+
+-- | @'top' = 'Annoying'@
+instance BoundedMeetSemiLattice Verbosity where
+    top = maxBound
+
+#else
+
 -- | @('\/') = 'max'@
 instance JoinSemiLattice Verbosity where
     (\/) = max
@@ -217,6 +244,9 @@ instance BoundedMeetSemiLattice Verbosity where
 
 instance Lattice Verbosity
 instance BoundedLattice Verbosity
+#endif
+
+-- DECLARE_LATTICE_INSTANCES
 #endif
 
 -- | Increment verbosity level. Return 'Nothing' if trying to icrement beyond

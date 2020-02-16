@@ -2,13 +2,20 @@
 # http://docs.haskellstack.org/en/stable/yaml_configuration/
 
 # (GHC 8.6.5)
-resolver: lts-13.21
+resolver: lts-14.27
 
 packages:
   - '.'
 
 extra-deps:
-  - dhall-1.23.0
+  - generic-lens-core-2.0.0.0
+  - generic-lens-2.0.0.0
+  - indexed-profunctors-0.1
+# - lattices-1.7.1.1
+  - lattices-2.0.1
+  - safecopy-0.10.2
+# - dhall-1.23.0
+  - dhall-1.30.0
 
 flags:
   verbosity:

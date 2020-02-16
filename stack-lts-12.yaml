@@ -13,7 +13,6 @@ flags:
   verbosity:
     binary: True
     cereal: True
-    data-default: True
     deepseq: True
     pedantic: True
     safecopy: True

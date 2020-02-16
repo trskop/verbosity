@@ -1,6 +1,25 @@
 # ChangeLog / ReleaseNotes
 
 
+## Version 0.4.0.0
+
+*   Bumped lower bound of `dhall` library set to 1.23.0.  Version 1.22.0
+    supported Dhall Standard 7.0.0, however, it failed to deserialise new-style
+    enums properly, which was fixed in version 1.23.0.  (**breaking change**)
+
+*   Dhall library restructured to fit with current Dhall best practices.
+
+*   Bumped upper bound of `lattices` to support versions 2.\* (**breaking
+    change**)
+
+*   Bumped upper bound of `generic-lens` to support versions 2.\* (**change**)
+
+*   Bumped upper bound of `safecopy` to support versions 0.10.\* (**change**)
+
+*   Removed `data-default` dependency and associated instance for `Default`
+    type class. (**breaking change**)
+
+
 ## Version 0.3.0.0
 
 * Optional instances for `JoinSemiLattice`, `MeetSemiLattice`,
@@ -19,6 +38,7 @@
 * Dropped support for GHC \< 8.2.  As a consequence `Data`, `Generic`, and
   `Typeable` are always derived.  The last one is implied by the fact that GHC
   now always derives it. (**breaking change**)
+* Uploaded to [Hackage][]: <http://hackage.haskell.org/package/verbosity-0.3.0.0>
 
 
 ## Version 0.2.3.0
