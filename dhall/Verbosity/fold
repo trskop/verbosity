@@ -1,30 +1,27 @@
-let Verbosity = ./Type
+-- vim: filetype=dhall
+--
+-- Version of `merge` specialised to `Verbosity`.  This way we don't need
+-- to pass that many parameters.
+--
+-- ```
+-- fold
+--   : ∀(r : Type)
+--   → ∀ (handler
+--         : { Silent : r
+--           , Normal : r
+--           , Verbose : r
+--           , Annoying : r
+--           }
+--       )
+--   → ∀(verbosity : Verbosity)
+--   → r
+-- ```
 
-in  -- Version of `merge` specialised to `Verbosity`.  This way we don't need
-    -- to pass that many parameters.
-    --
-    -- ```
-    -- fold
-    --   : ∀(r : Type)
-    --   → ∀ (handler
-    --         : { Silent : r
-    --           , Normal : r
-    --           , Verbose : r
-    --           , Annoying : r
-    --           }
-    --       )
-    --   → ∀(verbosity : Verbosity)
-    --   → r
-    -- ```
-      λ(r : Type)
-    → λ(handler
-          : { Silent : r
-            , Normal : r
-            , Verbose : r
-            , Annoying : r
-            }
-        )
-    → λ(verbosity : Verbosity)
-    → merge handler verbosity
+let Verbosity =
+        ./Type sha256:f009a39a49b1ee65651e9510778e7d72ff96820f4702a955e8f47682d72995c6
+      ? ./Type
 
--- vim: ft=dhall
+in  λ(r : Type) →
+    λ(handler : { Silent : r, Normal : r, Verbose : r, Annoying : r }) →
+    λ(verbosity : Verbosity) →
+      merge handler verbosity
